@@ -6,3 +6,8 @@ console.log(mercancia.length);
 
 console.log(mercancia.includes("Tablet"));
 console.log(mercancia.includes("Monitor"));
+
+//Devuelve -1 si no encuentra la palabra y 
+// si lo encuentra devuelve la posición de la primera letra.
+
+console.log(mercancia.indexOf("20")); 
