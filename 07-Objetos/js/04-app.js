@@ -4,7 +4,7 @@ const producto = {
     disponible: true,
 } 
 
-const nombre = producto.nombre; // creo la variable y le asigna el valor de la propiedad del objeto
+//const nombre = producto.nombre; // creo la variable y le asigna el valor de la propiedad del objeto
 
 
 const {precio, disponible } = producto; //crea las variables y le asigna las propiedades del objeto.
