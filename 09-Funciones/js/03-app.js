@@ -3,13 +3,13 @@ const password = prompt("Cree su contraseña");
 
 
 function validacion(){
-    const nombre2 =prompt("Ingrese su usuario");
-    prompt("Ingrese su contraseña");
-    if (nombre != nombre){
+    let nombre2 =prompt("Ingrese su usuario");
+    let password2 = prompt("Ingrese su contraseña");
+    if (nombre != nombre2){
         alert("Usuario incorrecto");
-    } else if(password != password){
-        alert("Contraseña incorrecta")
-    }else if ((nombre = nombre) ){
+    } else if(password != password2){
+        alert("Contraseña incorrecta");
+    }else if ((nombre == nombre2) && (password == password2) ){
         console.log("Has ingresado exitosamente");
     }
     
