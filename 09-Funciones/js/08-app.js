@@ -11,7 +11,7 @@ function agregarCarrito(precio){  // toma total y le suma precio del articulo
 }
 
 function impuesto(total){   // toma el total y le añade el 15%
-    return total * 1.15;
+    return total = 1.15;
 }
 
 agregarCarrito(300);
@@ -21,6 +21,7 @@ console.log(total);
 
 const totaPagar = impuesto(total); // Le a
 console.log(totaPagar);
+console.log(total);
 
 
 
