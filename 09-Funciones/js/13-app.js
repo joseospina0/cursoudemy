@@ -1,4 +1,7 @@
 const reproductor = {
+
+    cancion: " ",
+
     reproducir: (nombre = '') => console.log(`Reproduciendo ${nombre}`),
 
     pausar: () => {console.log(`Pausando`);},
@@ -7,7 +10,17 @@ const reproductor = {
 
     crearPlaylist: (playname = " ") => {console.log(`Playlist ${playname} creada`);},
     
-    reproducirplaylist: (playname = '')=> {console.log(`Reproduciendo ${playname}`);}
+    reproducirplaylist: (playname = '')=> {console.log(`Reproduciendo ${playname}`);},
+
+    set nuevaCancion(cancion) {
+        this.cancion = cancion;
+        console.log(`Agregando ${cancion}`);
+    },
+
+    get obtenerCancion() {
+        console.log(`La cancion actual es ${this.cancion}`);
+    }
+
 }
 
 reproductor.reproducir("Doma");
