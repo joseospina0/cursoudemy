@@ -30,13 +30,26 @@ function leerDatosCurso(cursoSeleccionado){
         cantidad: 1
     }
 
+// Revisar si un elelemnto ya exite en el carrito 
+
+const existe = articulosCarrito.some(curso => curso.id === infoCurso.id);
+if(existe){
+    const cursos = articulosCarrito.map(curso => {
+        // Itera sobre el array y encuentra los ids iguales
+        if(curso.id === infoCurso.id){
+            curso.cantidad++;
+            return curso; // Retorna la informacion con la cantidad actualizada
+        }else{
+            return curso; // Si no encuentra mismos ids, devuelve la informacion como estaba 
+        }
+    });
+    articulosCarrito = [...cursos];
+
     // Agregar elementos del curso al carrito
+}else{
     articulosCarrito = [...articulosCarrito, infoCurso]
-
-    console.log(articulosCarrito);
-
+}
     carritoHTML();
-
 };
 
 // Muestra el carrito en el html 
@@ -51,10 +64,16 @@ function carritoHTML(){
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                ${cursoSeleccionado.titulo}
+                <img src = ${cursoSeleccionado.imagen} width ="100">
             </td>
+            <td>${cursoSeleccionado.titulo}</td>
+            <td>${cursoSeleccionado.precio}</td>
+            <td>${cursoSeleccionado.cantidad}</td>
+            <td>
+                <a href="#" class="borrar-curso" data-id="${cursoSeleccionado.id}"> X </a>
+            </td>    
         `;
-
+        
         // Agregar el html del carrito en el  tbody
         contenedorCarrito.appendChild(row);
     })
