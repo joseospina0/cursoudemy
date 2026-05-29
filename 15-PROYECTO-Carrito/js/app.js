@@ -4,17 +4,36 @@ const vaciarCarritoBtn = document.querySelector('#vaciar-carrito');
 const listaCursos = document.querySelector('#lista-cursos');
 let articulosCarrito = [];
 
+
+
 cargarEventListenerts();
 
 function cargarEventListenerts(){
-    listaCursos.addEventListener('click', e => { 
-        e.preventDefault();
-        if(e.target.classList.contains('agregar-carrito')){
-            const cursoSeleccionado = e.target.parentElement.parentElement
-            leerDatosCurso(cursoSeleccionado);
-        }
+    listaCursos.addEventListener('click', AgregarCurso);
+
+    carrito.addEventListener('click', eliminarCurso)
+
+    vaciarCarritoBtn.addEventListener('click', () => {
+        articulosCarrito = [];
+        limpiarHTML();
     })
 };
+
+function AgregarCurso(e){
+    e.preventDefault();
+    if(e.target.classList.contains('agregar-carrito')){
+        const cursoSeleccionado = e.target.parentElement.parentElement
+        leerDatosCurso(cursoSeleccionado);
+    }
+}
+
+function eliminarCurso(e){
+    if(e.target.classList.contains('borrar-curso')){
+        const cursoId = e.target.getAttribute('data-id');
+        articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId);
+        carritoHTML();
+    }
+}
 
 
 // Lee el contenido del html y extrae la info del curso 
