@@ -1,0 +1,48 @@
+/* Estilos generales */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f5f5f5;
+    color: #222222;
+}
+
+/* Encabezados */
+h1 {
+    color: #1e88e5;
+}
+
+h2 {
+    color: #1565c0;
+    margin-top: 24px;
+}
+
+/* Párrafos */
+p {
+    line-height: 1.5;
+}
+
+/* Sección de proyectos */
+.proyectos {
+    background-color: #ffffff;
+    padding: 16px;
+    margin-top: 24px;
+    border-radius: 8px;
+}
+
+/* Lista dentro de proyectos */
+.proyectos ul {
+    list-style-type: square;
+}
+
+/* Nombre de los proyectos */
+.proyectos span {
+    background-color: #000000;
+    font-weight: bold;
+    color: #d81b60;
+}
+
+/* Nombre de los proyectos */
+.proyectos em {
+    font-weight: bold;
+    color: #60581a;
+}
+
