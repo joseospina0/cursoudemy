@@ -6,11 +6,15 @@ document.addEventListener('DOMContentLoaded' , function (){
     const formulario = document.querySelector('#formulario');
     const btnSubmit = document.querySelector('#botones button[type="submit"]');
     const btnReset = document.querySelector('#botones button[type="reset"]');
+    const spinner = document.querySelector('#spinner');
+    const postForm = document.querySelector('#general');
+    const receptor = document.querySelector('#receptor');
     
     const inputs = {
         email: '',
         asunto: '',
-        mensaje: ''
+        mensaje: '',
+        receptor: '.',
     }
 
     inputEmail.addEventListener('blur', validar);
@@ -19,17 +23,44 @@ document.addEventListener('DOMContentLoaded' , function (){
 
     inputMensaje.addEventListener('blur', validar);
 
+    formulario.addEventListener('submit', enviarForm);
+
+    receptor.addEventListener('input', ccReceptor);
+
     btnReset.addEventListener('click', function(e){
         e.preventDefault();
 
         //Tenemos que reiniciar no solo el formulario sino tambien el arreglo
-        inputs.email = '';
-        inputs.asunto = '';
-        inputs.mensaje = '';
-
-        formulario.reset();
-        comprobarInputs();
+        resetFormulario();
     });
+
+    function enviarForm(e) {
+        e.preventDefault();
+        spinner.classList.add('flex');
+        spinner.classList.remove('hidden');
+
+        setTimeout(()=>{
+            spinner.classList.remove('flex');
+            spinner.classList.add('hidden');
+
+            resetFormulario();
+
+            const enviado = document.createElement('p');
+            enviado.textContent = 'Correo enviado con éxito'; 
+            enviado.classList.add('bg-green-500', 'text-white', 'p-2', 'text-center', 'rounded-lg','mt-10', 'font-bold',
+                'text-sm', 'uppercase'
+            );
+            formulario.appendChild(enviado);
+
+            setTimeout(()=>{
+                enviado.remove();
+
+            },3000)
+
+        }, 3000);
+
+        
+    }
 
     function validar(e) { 
         if(e.target.value.trim() === ''){
@@ -71,6 +102,7 @@ document.addEventListener('DOMContentLoaded' , function (){
         error.textContent = mensaje;
         error.classList.add('bg-red-600', 'text-white', 'p-2', 'text-center',);
         
+        
         // Inserta la alerta en el div padre al final
         referencia.appendChild(error);
     }
@@ -89,6 +121,31 @@ document.addEventListener('DOMContentLoaded' , function (){
 
     }
 
+    function ccReceptor(e) {
+    // 1. Si el campo está vacío, simplemente limpiamos cualquier alerta previa y no validamos más
+
+    // Es importante llamar la funcion de comprobar input 
+    if (e.target.value.trim() === '') {
+        limpiarAlerta(e.target.parentElement);
+        inputs[e.target.name] = '.'
+        comprobarInputs();
+        return;
+    }
+
+    // 2. Si tiene texto, validamos si es correcto o no
+    if (e.target.id === 'receptor' && !validarEmail(e.target.value)) {
+        mostrarAlerta(`El email no es valido`, e.target.parentElement);
+        inputs.receptor = '';
+
+    } else {
+        // 🌟 Si el email SÍ es válido, borramos el cartel rojo
+        limpiarAlerta(e.target.parentElement);
+        inputs.receptor = '.';
+    }
+
+    comprobarInputs();
+}
+
     function comprobarInputs(){
         if(!Object.values(inputs).includes('')){
             btnSubmit.classList.remove('opacity-50');
@@ -98,6 +155,16 @@ document.addEventListener('DOMContentLoaded' , function (){
         btnSubmit.classList.add('opacity-50');
         btnSubmit.disabled = true;
         
+    }
+
+    function resetFormulario(){
+        inputs.email = '';
+        inputs.asunto = '';
+        inputs.mensaje = '';
+        inputs.receptor = '';
+
+        formulario.reset();
+        comprobarInputs();
     }
 
 }

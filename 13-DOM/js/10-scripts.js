@@ -80,7 +80,7 @@ card.appendChild(info);
 const contenedor = document.querySelector('.hacer .contenedor-cards');
 contenedor.appendChild(card);
 
-contenedor.insertBefore(card, contenedor.children[0]);f
+contenedor.insertBefore(card, contenedor.children[0]);
 
 
 console.log(card);
