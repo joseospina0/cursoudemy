@@ -41,15 +41,19 @@ document.addEventListener('DOMContentLoaded', () =>{
 marca.addEventListener('change', (e) =>{
     filtro.marca = e.target.value;
     filtrarAuto();
+    mostrarAutos(autos);
 })
 
 year.addEventListener('change', (e) => {
     filtro.year = e.target.value;
+    filtrarAuto(); 
+    mostrarAutos(autos);
     
 })
 
 minimo.addEventListener('change', (e)=>{
     filtro.minimo = e.target.value;
+    filtrarAuto(); 
 })
 
 maximo.addEventListener('change', (e)=>{
@@ -57,7 +61,7 @@ maximo.addEventListener('change', (e)=>{
 })
 
 puertas.addEventListener('change', (e)=>{
-    filtro.puertas = e.target.value;
+    filtro.puertas = parseInt(e.target.value);
 })
 
 transmision.addEventListener('change', (e)=>{
@@ -70,7 +74,11 @@ color.addEventListener('change', (e=>{
 
 /* año.addEventListener('click', filtrarAño); */
 
-function mostrarAutos(){
+function mostrarAutos(autos){
+
+    limpiarHTML();
+
+
     autos.forEach(autos =>{
         const {marca, modelo, year, puertas, transmision, precio, color} = autos;
         const catalogo = document.createElement('p');
@@ -94,8 +102,20 @@ function llenarSelect(){
     }
 }
 
+// limpiar html antes de cada consulta
+
+function limpiarHTML(){
+    while(resultado.firstChild){
+        resultado.removeChild(resultado.firstChild)
+    }
+}
+
+
+
+
 function filtrarAuto(){
-    const resultadoFiltrado = autos.filter(filtrarMarca)
+    const resultadoFiltrado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo)
+    console.log(resultadoFiltrado);
 }
 
 function filtrarMarca(auto){
@@ -105,5 +125,27 @@ function filtrarMarca(auto){
     }
     return auto;
     
-console.log(filtro);
+    console.log(filtro);
 }
+
+function filtrarYear(auto){
+    const {year} = filtro;
+    if(year){
+        return auto.year === year;
+    }
+    return auto;
+    
+    console.log(filtro);
+}
+
+function filtrarMinimo(auto){
+    const {minimo} = filtro;
+    if(minimo){
+        return auto.precio >= minimo;
+    }
+    return auto;
+    
+    console.log(filtro);
+}
+
+
