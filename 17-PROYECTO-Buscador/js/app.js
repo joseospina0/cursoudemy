@@ -28,7 +28,7 @@ const filtro = {
 
 
 document.addEventListener('DOMContentLoaded', () =>{
-    mostrarAutos();
+    mostrarAutos(autos);
 
     // Llena las opciones de año 
     llenarSelect();
@@ -41,13 +41,11 @@ document.addEventListener('DOMContentLoaded', () =>{
 marca.addEventListener('change', (e) =>{
     filtro.marca = e.target.value;
     filtrarAuto();
-    mostrarAutos(autos);
 })
 
 year.addEventListener('change', (e) => {
-    filtro.year = e.target.value;
+    filtro.year = parseInt(e.target.value);
     filtrarAuto(); 
-    mostrarAutos(autos);
     
 })
 
@@ -58,18 +56,22 @@ minimo.addEventListener('change', (e)=>{
 
 maximo.addEventListener('change', (e)=>{
     filtro.maximo = e.target.value;
+    filtrarAuto();
 })
 
 puertas.addEventListener('change', (e)=>{
     filtro.puertas = parseInt(e.target.value);
+    filtrarAuto();
 })
 
 transmision.addEventListener('change', (e)=>{
     filtro.transmision = e.target.value;
+    filtrarAuto();
 })
 
 color.addEventListener('change', (e=>{
     filtro.color = e.target.value; 
+    filtrarAuto();
 }))
 
 /* año.addEventListener('click', filtrarAño); */
@@ -79,8 +81,8 @@ function mostrarAutos(autos){
     limpiarHTML();
 
 
-    autos.forEach(autos =>{
-        const {marca, modelo, year, puertas, transmision, precio, color} = autos;
+    autos.forEach(auto =>{
+        const {marca, modelo, year, puertas, transmision, precio, color} = auto;
         const catalogo = document.createElement('p');
         catalogo.textContent = `
         ${marca} ${modelo} - ${year} -${puertas} Puertas - Transmición: ${transmision} - Precio: ${precio} -
@@ -114,9 +116,26 @@ function limpiarHTML(){
 
 
 function filtrarAuto(){
-    const resultadoFiltrado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo)
-    console.log(resultadoFiltrado);
+    const resultadoFiltrado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo).filter(
+        filtrarPuertas).filter(filtrarTransmision).filter(filtrarColor);
+
+    if( resultadoFiltrado.length ){
+        mostrarAutos(resultadoFiltrado);
+    }else{
+        noResultado();
+    }
 }
+/* 
+function noResultado(){
+    limpiarHTML();
+
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('alerta', 'error');
+    noResultado.textContent = "No hay unidades disponibles";
+    resultado.appendChild(noResultado)
+} */
+
+
 
 function filtrarMarca(auto){
     const {marca} = filtro;
@@ -148,4 +167,42 @@ function filtrarMinimo(auto){
     console.log(filtro);
 }
 
+function filtrarMaximo(auto){
+    const {maximo} = filtro;
+    if(maximo){
+        return auto.precio <= maximo;
+    }
+    return auto;
+    
+    console.log(filtro);
+}
 
+function filtrarPuertas(auto){
+    const {puertas} = filtro;
+    if(puertas){
+        return auto.puertas === puertas;
+    }
+    return auto;
+    
+    console.log(filtro);
+}
+
+function filtrarTransmision(autos){
+    const {transmision} = filtro;
+    if(transmision){
+        return autos.transmision === transmision;
+    }
+    return autos;
+
+    console.log(filtro);
+}
+
+function filtrarColor(autos){
+    const {color} = filtro;
+    if(color){
+        return autos.color === color;
+    }
+    return autos;
+
+    console.log(filtro);
+}
