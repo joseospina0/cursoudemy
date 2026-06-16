@@ -125,7 +125,7 @@ function filtrarAuto(){
         noResultado();
     }
 }
-/* 
+
 function noResultado(){
     limpiarHTML();
 
@@ -133,7 +133,7 @@ function noResultado(){
     noResultado.classList.add('alerta', 'error');
     noResultado.textContent = "No hay unidades disponibles";
     resultado.appendChild(noResultado)
-} */
+}
 
 
 
