@@ -32,3 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ui.llenarOpciones();
 } )
 
+eventListeners();
+function eventListeners(){
+    const formulario = document.querySelector('#cotizar-seguro');
+    formulario.addEventListener('submit', cotizarSeguro);
+}
+
+function cotizarSeguro(e){
+    e.preventDefault();
+
+}
